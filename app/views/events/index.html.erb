@@ -1,0 +1,89 @@
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<h1 style="text-align: center;">Events#index</h1>
+<br>
+<div id='calendar'></div>
+<span class="collapsible">Open Collapsible</spa>
+<div class="content">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+<style type="text/css">
+
+  body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .fc-list-item-title a:hover {color:#000000; text-decoration:underline;}
+.fc-event-time,
+.fc-event-title {
+    padding: 0 1px;
+    float: left;
+    clear: none;
+    margin-right: 10px;
+}
+</style>
+<script type="text/javascript">
+		$(document).ready(function() {
+      
+				$('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'listDay,agendaWeek'
+          },
+
+          // customize the button names,
+          // otherwise they'd all just say "list"
+          views: {
+            listDay: { buttonText: 'list day' },
+            listWeek: { buttonText: 'list week' }
+          },
+
+          defaultView: 'listDay',
+          defaultDate: '2019-01-02',
+          navLinks: true, // can click day/week names to navigate views
+          editable: true,
+          events: [
+            <% @data.each do |f| %>
+              {
+                title: '<%= f[:name]%>',
+                start: '<%= f[:start_time] %>',
+                end: ' <%= f[:end_time] %>',
+                description: 'first description',
+                addStar: "star",
+                addNote: "Notes"
+              },
+
+            <% end %>
+          ],
+          eventRender: function(event, element) { 
+          element.find('.fc-list-item-title').append("<br/>Hiiiiiiiiiiiiiiii" + event.description); 
+          }
+        });
+
+			});
+</script>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
