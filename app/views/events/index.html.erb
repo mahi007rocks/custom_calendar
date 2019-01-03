@@ -3,10 +3,7 @@
 <h1 style="text-align: center;">Events#index</h1>
 <br>
 <div id='calendar'></div>
-<span class="collapsible">Open Collapsible</spa>
-<div class="content">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
+
 <style type="text/css">
 
   body {
@@ -28,11 +25,15 @@
     float: left;
     clear: none;
     margin-right: 10px;
+    
 }
+.cat{
+      height: 100px;
+    }
 </style>
 <script type="text/javascript">
 		$(document).ready(function() {
-      
+       
 				$('#calendar').fullCalendar({
           header: {
             left: 'prev,next today',
@@ -48,7 +49,7 @@
           },
 
           defaultView: 'listDay',
-          defaultDate: '2019-01-02',
+          defaultDate: '2019-01-03',
           navLinks: true, // can click day/week names to navigate views
           editable: true,
           events: [
@@ -66,24 +67,23 @@
           ],
           eventRender: function(event, element) { 
           element.find('.fc-list-item-title').append("<br/>Hiiiiiiiiiiiiiiii" + event.description); 
+          },
+          eventClick: function(calEvent, jsEvent, view) {
+              $(".fc-list-item").click(function(){
+                if (this.querySelector('.cat') == null){
+                  // alert("Solution fond");
+                  $(this).append('<div class="cat">Some stuff</div>')
+                  this.querySelector('.cat').style.color='red';
+                }
+                else{
+                  // debugger
+                  this.querySelector('.cat').remove();
+                  // $(this).append('<div class="cat">Some stuff</div>')
+                  // this.querySelector('.cat').style.color='red';
+                }
+              });
           }
         });
 
 			});
-</script>
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
 </script>
