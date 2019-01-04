@@ -13460,7 +13460,7 @@ var ListViewGrid = Grid.extend({
 					htmlEscape(seg.event.title || '') +
 				'</a>' +
 			'</td>' +
-		'</tr>'+'<br />';
+		'</tr>'+'empty';
 	}
 
 });

@@ -76,7 +76,6 @@
                 description: 'first description',
                 addStar: "star",
                 addNote: "Notes",
-                url: "events"
               },
 
             <% end %>
@@ -92,9 +91,9 @@
                   var star = $(this)[0].querySelector(".custom-class").innerHTML;
                   var name = $(this)[0].childNodes[4].querySelector('a').innerHTML;
 
-                  $(this).append('<div class="cat">Hiii</div>');
+                  $(this).append('<td class="cat"></td><br>');
                   
-                  this.querySelector('.cat').append(slot_time + star + name)
+                  this.querySelector('.cat').append(slot_time +':' + star + ':'+name);
                   // debugger
                   this.querySelector('.cat').style.color='red';
                 }
