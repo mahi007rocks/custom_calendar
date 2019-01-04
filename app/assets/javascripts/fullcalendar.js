@@ -7814,7 +7814,7 @@ var View = FC.View = Class.extend(EmitterMixin, ListenerMixin, {
 	widgetHeaderClass: null,
 	widgetContentClass: null,
 	highlightStateClass: null,
-    addStar: null,
+    addStar 	: null,
     addNote: null,
 	// for date utils, computed from options
 	nextDayThreshold: null,
@@ -13460,7 +13460,7 @@ var ListViewGrid = Grid.extend({
 					htmlEscape(seg.event.title || '') +
 				'</a>' +
 			'</td>' +
-		'</tr>';
+		'</tr>'+'<br />';
 	}
 
 });

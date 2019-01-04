@@ -2,8 +2,20 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <h1 style="text-align: center;">Events#index</h1>
 <br>
-<div id='calendar'></div>
-
+<div class="row">
+  <div class="col-sm-6">
+    <div id='calendar'></div>
+  </div>
+  <div class="col-sm-6">
+    <div class="event-description-section">
+        <table class="table order-details-table">
+          <tbody id="insert_here">
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+  
 <style type="text/css">
 
   body {
@@ -18,7 +30,7 @@
     margin: 0 auto;
   }
   
-  .fc-list-item-title a:hover {color:#000000; text-decoration:underline;}
+  .fc-list-item-title a:hover {color: red; text-decoration:underline;}
 .fc-event-time,
 .fc-event-title {
     padding: 0 1px;
@@ -26,6 +38,9 @@
     clear: none;
     margin-right: 10px;
     
+}
+.custom-class:hover{
+  color: green;
 }
 .cat{
       height: 100px;
@@ -60,23 +75,30 @@
                 end: ' <%= f[:end_time] %>',
                 description: 'first description',
                 addStar: "star",
-                addNote: "Notes"
+                addNote: "Notes",
+                url: "events"
               },
 
             <% end %>
           ],
           eventRender: function(event, element) { 
-          element.find('.fc-list-item-title').append("<br/>Hiiiiiiiiiiiiiiii" + event.description); 
+          // element.find('.fc-list-item-title').append(event.description); 
           },
-          eventClick: function(calEvent, jsEvent, view) {
-              $(".fc-list-item").click(function(){
+          eventClick: function(event,calEvent, jsEvent, view) {
+
+              $(".fc-list-item").click(function(event, calEvent, jsEvent, view){
                 if (this.querySelector('.cat') == null){
-                  // alert("Solution fond");
-                  $(this).append('<div class="cat">Some stuff</div>')
+                  var slot_time = $(this)[0].querySelector(".fc-list-item-time").innerHTML
+                  var star = $(this)[0].querySelector(".custom-class").innerHTML;
+                  var name = $(this)[0].childNodes[4].querySelector('a').innerHTML;
+
+                  $(this).append('<div class="cat">Hiii</div>');
+                  
+                  this.querySelector('.cat').append(slot_time + star + name)
+                  // debugger
                   this.querySelector('.cat').style.color='red';
                 }
                 else{
-                  // debugger
                   this.querySelector('.cat').remove();
                   // $(this).append('<div class="cat">Some stuff</div>')
                   // this.querySelector('.cat').style.color='red';
