@@ -13444,9 +13444,9 @@ var ListViewGrid = Grid.extend({
 					(timeHtml || '') +
 				'</td>' :
 				'') +
-			'<td class="custom-class">'+htmlEscape(seg.event.addStar)+'</td>'
+			'<td class="session-color">'+'</td>'
 			+
-			'<td class="custom-class">'+htmlEscape(seg.event.addNote)+'</td>'
+			'<td class="notes-icon">'+'</td>'
 			+
 			'<td class="fc-list-item-marker ' + view.widgetContentClass + '">' +
 				'<span class="fc-event-dot"' +
@@ -13460,6 +13460,7 @@ var ListViewGrid = Grid.extend({
 					htmlEscape(seg.event.title || '') +
 				'</a>' +
 			'</td>' +
+			'<td class="slide-down">'+'</td>'+
 		'</tr>'+'empty';
 	}
 

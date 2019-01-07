@@ -43,8 +43,17 @@
   color: green;
 }
 .cat{
-      height: 100px;
-    }
+  height: 100px;
+}
+.slide-down{
+  text-align: right;
+}
+.fa-arrow-down{
+  color: skyblue;
+}
+ .fa-sticky-note{
+  color: gold;
+ }
 </style>
 <script type="text/javascript">
 		$(document).ready(function() {
@@ -74,37 +83,46 @@
                 start: '<%= f[:start_time] %>',
                 end: ' <%= f[:end_time] %>',
                 description: 'first description',
-                addStar: "star",
+                addStar: "asterisk",
                 addNote: "Notes",
               },
 
             <% end %>
           ],
           eventRender: function(event, element) { 
-          // element.find('.fc-list-item-title').append(event.description); 
+            // debugger
+          element.find('.session-color').prepend("<i class='fa fa-star'></i>");
+          element.find('.notes-icon').prepend("<i class='fa fa-sticky-note'></i>");
+          element.find('.slide-down').prepend("<i class='fa  fa-arrow-down'></i>");
           },
           eventClick: function(event,calEvent, jsEvent, view) {
-
               $(".fc-list-item").click(function(event, calEvent, jsEvent, view){
-                if (this.querySelector('.cat') == null){
+                 
+                var first_name = this.nextElementSibling
+                if ( !first_name || first_name.className == "fc-list-item"){
                   var slot_time = $(this)[0].querySelector(".fc-list-item-time").innerHTML
-                  var star = $(this)[0].querySelector(".custom-class").innerHTML;
+                  // var star = $(this)[0].querySelector(".custom-class").innerHTML;
                   var name = $(this)[0].childNodes[4].querySelector('a').innerHTML;
-
-                  $(this).append('<td class="cat"></td><br>');
+                 
+                  $(this).after('<div class="cat"></div>');
+                  $(this).after('<div class="mat"></div>');
                   
-                  this.querySelector('.cat').append(slot_time +':' + star + ':'+name);
-                  // debugger
-                  this.querySelector('.cat').style.color='red';
+                  $('.cat').append(slot_time);
+                  $('.mat').append(name);
                 }
                 else{
-                  this.querySelector('.cat').remove();
-                  // $(this).append('<div class="cat">Some stuff</div>')
-                  // this.querySelector('.cat').style.color='red';
+                  $('.cat').remove();
+                  $('.mat').remove();
                 }
               });
           }
+          
         });
-
+         $(".fc-right").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
+  
+   $(".select_month").on("change", function(event) {
+   $('#calendar').fullCalendar('changeView', 'month', this.value);
+   $('#calendar').fullCalendar('gotoDate', "2018-"+this.value+"-1");
+   });
 			});
 </script>
