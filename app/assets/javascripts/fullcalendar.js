@@ -7448,18 +7448,18 @@ TimeGrid.mixin({
 				) +
 			'>' +
 				'<div class="fc-content">' +
+			        (event.title ?
+					  '<div class="fc-title">' +
+						htmlEscape(event.title) +
+					'</div>' :
+					''
+					) +
 					(timeText ?
 						'<div class="fc-time"' +
 						' data-start="' + htmlEscape(startTimeText) + '"' +
 						' data-full="' + htmlEscape(fullTimeText) + '"' +
 						'>' +
 							'<span>' + htmlEscape(timeText) + '</span>' +
-						'</div>' :
-						''
-						) +
-					(event.title ?
-						'<div class="fc-title">' +
-							htmlEscape(event.title) +
 						'</div>' :
 						''
 						) +
@@ -13439,12 +13439,15 @@ var ListViewGrid = Grid.extend({
 		}
 
 		return '<tr class="' + classes.join(' ') + '">' +
+		    '<td class="session-color">'+'</td>'
+		    +
 			(this.displayEventTime ?
 				'<td class="fc-list-item-time ' + view.widgetContentClass + '">' +
 					(timeHtml || '') +
 				'</td>' :
-				'') +
-			'<td class="session-color">'+'</td>'
+				'')
+			+
+			'<td class="bell-icon">'+'</td>'
 			+
 			'<td class="notes-icon">'+'</td>'
 			+

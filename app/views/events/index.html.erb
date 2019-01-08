@@ -26,11 +26,11 @@
   }
 
   #calendar {
-    max-width: 900px;
+    max-width: 1300px;
     margin: 0 auto;
   }
   
-  .fc-list-item-title a:hover {color: red; text-decoration:underline;}
+.fc-list-item-title a:hover {color: red; text-decoration:underline;}
 .fc-event-time,
 .fc-event-title {
     padding: 0 1px;
@@ -43,16 +43,22 @@
   color: green;
 }
 .cat{
-  height: 100px;
+  height: 50px;
 }
 .slide-down{
   text-align: right;
 }
-.fa-arrow-down{
+.fa-angle-down{
   color: skyblue;
 }
  .fa-sticky-note{
   color: gold;
+ }
+ .fa-bell{
+  color: green;
+ }
+ .fa-star{
+  color: red;
  }
 </style>
 <script type="text/javascript">
@@ -83,26 +89,69 @@
                 start: '<%= f[:start_time] %>',
                 end: ' <%= f[:end_time] %>',
                 description: 'first description',
-                addStar: "asterisk",
-                addNote: "Notes",
+                addStar: "Add or remove",
+                addNote: "Edit event notes",
+                bell: "Notification settings",
               },
 
             <% end %>
           ],
-          eventRender: function(event, element) { 
-            // debugger
-          element.find('.session-color').prepend("<i class='fa fa-star'></i>");
-          element.find('.notes-icon').prepend("<i class='fa fa-sticky-note'></i>");
-          element.find('.slide-down').prepend("<i class='fa  fa-arrow-down'></i>");
+          eventRender: function(event, element) {
+
+          var color = element.find('.session-color')
+          var bell = element.find('.bell-icon')
+          var notes = element.find('.notes-icon')
+          var slide = element.find('.slide-down')
+
+          color.prepend("<i class='fa fa-star'></i>");
+          bell.prepend("<i class='fa  fa-bell'></i>");
+          notes.prepend("<i class='fa fa-sticky-note'></i>");
+          slide.prepend("<i class='fa  fa-angle-down fa-2x'></i>");
+          // element[0].title = "This is your name";
+          // element[0].addNote = "Please add note"
           },
+          eventMouseover: function (data, event,view) {
+               tooltip = '<div class="tooltiptopicevent" style="width:auto;height:auto;background:#feb811;position:absolute;z-index:10001;padding:10px 10px 10px 10px ;  line-height: 200%;">' + 'title: ' + ': ' + data.title + '</br>' + 'start: ' + ': ' + data.start + '</div>';
+
+
+            $("body").append(tooltip);
+            $(this).mouseover(function (e) {
+                $(this).css('z-index', 10000);
+                $('.tooltiptopicevent').fadeIn('500');
+                $('.tooltiptopicevent').fadeTo('10', 1.9);
+            }).mousemove(function (e) {
+                $('.tooltiptopicevent').css('top', e.pageY + 10);
+                $('.tooltiptopicevent').css('left', e.pageX + 20);
+            });
+
+
+        },
+        eventMouseout: function (data, event, view) {
+            $(this).css('z-index', 8);
+
+            $('.tooltiptopicevent').remove();
+
+        },
+        eventResizeStart: function () {
+            tooltip.hide()
+        },
+        eventDragStart: function () {
+            tooltip.hide()
+        },
+        viewDisplay: function () {
+            tooltip.hide()
+        },
           eventClick: function(event,calEvent, jsEvent, view) {
+              $(".bell-icon").click(function(){
+                alert("bell here");
+              })
               $(".fc-list-item").click(function(event, calEvent, jsEvent, view){
                  
                 var first_name = this.nextElementSibling
                 if ( !first_name || first_name.className == "fc-list-item"){
                   var slot_time = $(this)[0].querySelector(".fc-list-item-time").innerHTML
                   // var star = $(this)[0].querySelector(".custom-class").innerHTML;
-                  var name = $(this)[0].childNodes[4].querySelector('a').innerHTML;
+                  var name = $(this)[0].childNodes[5].querySelector('a').innerHTML;
                  
                   $(this).after('<div class="cat"></div>');
                   $(this).after('<div class="mat"></div>');
@@ -118,11 +167,5 @@
           }
           
         });
-         $(".fc-right").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
-  
-   $(".select_month").on("change", function(event) {
-   $('#calendar').fullCalendar('changeView', 'month', this.value);
-   $('#calendar').fullCalendar('gotoDate', "2018-"+this.value+"-1");
-   });
 			});
 </script>
